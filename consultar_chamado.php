@@ -58,7 +58,7 @@
 
               $chamados_dados = explode("#", $chamado);
 
-              if($_SESSION['perfil_id'] == 2){
+              if($_SESSION['fk_perfil_id'] == 2){
                 if($_SESSION['id'] != $chamados_dados[0]){
                   continue;
                 }

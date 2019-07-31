@@ -1,16 +1,21 @@
 <?php 
-	session_start();
+	require_once 'db.php';
 
-	$titulo = str_replace('#', "-", $_POST['titulo']);
-	$categoria = str_replace('#', "-", $_POST['categoria']);
-	$descricao = str_replace('#', "-", $_POST['descricao']);
+		if(!empty($_POST['titulo']) && !empty($_POST['categoria']) && !empty($_POST['descricao'])){
 
-	$texto = $_SESSION['id'] . '#' . $titulo . '#' . $categoria . '#' . $descricao . PHP_EOL;
+			$titulo = $_POST['titulo'];
+			$categoria = $_POST['categoria'];
+			$descricao = $_POST['descricao'];
 
-	$arquivo = fopen('arquivo.txt', 'a');
-	fwrite($arquivo, $texto);
-	fclose($arquivo);
+			$sql = "INSERT INTO chamado VALUES (?,?,?,?)";
+			$stmt= $conexao->prepare($sql);
+			$stmt->execute([' ', $titulo, $categoria, $descricao]);
 
-	header('Location: abrir_chamado.php');
-	echo "<script> alert('Chamado aberto com sucesso.'); </script>";
+			if($stmt->rowCount() == 1){
+				header("Location: abrir_chamado.php?cadastro=sucesso");
+			}
+		}else{
+			header("Location: abrir_chamado.php?cadastro=erro_form");
+		}
+
 ?>

@@ -1,5 +1,11 @@
 <?php 
   require_once "validador_acesso.php";  
+
+  if (isset($_GET['cadastro']) && $_GET['cadastro'] == 'sucesso') {
+    echo "<script> alert('Chamado aberto com sucesso.'); </script>";
+  }elseif(isset($_GET['cadastro']) && $_GET['cadastro'] == 'erro_form'){
+    echo "<script> alert('Por favor, preencha todos os campos.'); </script>";
+  }
 ?>
 
 <html>
